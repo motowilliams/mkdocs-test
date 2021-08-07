@@ -31,8 +31,7 @@ docker-build:
 
 site-build:
   image: registry.gitlab.com/motowilliams/mkdocs-test:latest
-  stage: build
-  needs: ["docker-build"]
+  stage: deploy
   services:
     - docker:dind
   script:
