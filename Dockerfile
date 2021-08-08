@@ -27,7 +27,3 @@ RUN pip3 install --no-cache --upgrade pip setuptools
 RUN pip install mkdocs
 
 EXPOSE 8000
-
-# Start development server by default
-# ENTRYPOINT ["mkdocs"]
-# CMD ["serve", "--dev-addr=0.0.0.0:8000"]
