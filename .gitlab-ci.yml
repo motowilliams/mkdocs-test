@@ -43,5 +43,8 @@ site-build:
     - mkdocs build
     - popd > /dev/null
     - cp -R my-project/site/* public/
+  artifacts:
+    paths:
+      - public/
   rules:
     - if: $CI_COMMIT_BRANCH
