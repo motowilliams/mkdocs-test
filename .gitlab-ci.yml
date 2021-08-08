@@ -38,11 +38,8 @@ pages:
     SITE_NAME: site
   script:
     - mkdir public
-    - pushd ${PWD} > /dev/null
-    - cd my-project
-    - mkdocs build
-    - popd > /dev/null
-    - cp -R my-project/site/* public/
+    - make build
+    - cp -R docs-site/site/* public/
   artifacts:
     paths:
       - public/
