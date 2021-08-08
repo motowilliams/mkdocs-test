@@ -29,7 +29,7 @@ docker-build:
       exists:
         - Dockerfile
 
-site-build:
+pages:
   image: registry.gitlab.com/motowilliams/mkdocs-test:latest
   stage: deploy
   services:
