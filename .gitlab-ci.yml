@@ -34,6 +34,8 @@ site-build:
   stage: deploy
   services:
     - docker:dind
+  variables:
+    SITE_NAME: site
   script:
     - mkdir public
     - pushd ${PWD} > /dev/null
