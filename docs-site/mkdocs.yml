@@ -8,4 +8,5 @@ nav:
   - Contact Us: contact-us.md
   - Products: products.md
   - Services: services.md
+  - License: license.md
 theme: readthedocs
