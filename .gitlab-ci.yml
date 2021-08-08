@@ -38,7 +38,7 @@ pages:
     SITE_NAME: site
   script:
     - mkdir public
-    - make build
+    - make build-docs
     - cp -R docs-site/site/* public/
   artifacts:
     paths:
