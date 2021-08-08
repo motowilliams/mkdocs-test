@@ -35,8 +35,11 @@ site-build:
   services:
     - docker:dind
   script:
-    - make build
     - mkdir public
+    - pushd ${PWD} > /dev/null
+    - cd my-project
+    - mkdocs build
+    - popd > /dev/null
     - cp -R my-project/site/* public/
   rules:
     - if: $CI_COMMIT_BRANCH
