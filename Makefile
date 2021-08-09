@@ -10,28 +10,36 @@ IMAGE_VERSION ?= latest
 IMAGE_TAG = $(IMAGE_NAME):$(IMAGE_VERSION)
 
 PROJECT_NAME ?= docs-site
+DOCS_SRC ?= docs
+DOCS_DIR ?= processed
 SITE_NAME ?= site
+SITE_URL ?= https://example.com/
 
 ifdef CI_JOB_STAGE
 DOCKER_COMMAND :=
 WORKING_DIR :=
 else
-WORKING_DIR := app/
+WORKING_DIR := /app/
 DOCKER_COMMAND := docker run -it \
 -v $(PWD):/${WORKING_DIR}/ \
+--env DOCS_DIR=${DOCS_DIR} \
 --env SITE_NAME=${SITE_NAME} \
+--env SITE_URL=${SITE_URL} \
+--env DOCS_SRC=${WORKING_DIR}${PROJECT_NAME}/${DOCS_SRC} \
+--env DOCS_PROCESSED=${WORKING_DIR}${PROJECT_NAME}/${DOCS_DIR} \
 --rm \
 -p 8000:8000 \
 $(IMAGE_TAG)
 endif
 
+# markdown-pp $i -o ../processed/$i
 clean_docs: ## Removes the content artifacts directory (SITE_NAME) and compressed archive (SITE_NAME.zip)
 	$(eval CMD := cd ${WORKING_DIR}${PROJECT_NAME} && rm -rf ${SITE_NAME}.zip && rm -rf ${SITE_NAME})
 	@echo "Cleaning ${SITE_NAME}.zip & ${SITE_NAME} in ${PROJECT_NAME}" && \
 	${DOCKER_COMMAND} ${BASH_CMD} '$(CMD)'
 
 build_docs: clean_docs ## Builds the mkdocs build command to generate content to (SITE_NAME)
-	$(eval CMD := cd ${WORKING_DIR}${PROJECT_NAME} && mkdocs build)
+	$(eval CMD := cd ${WORKING_DIR}${PROJECT_NAME} && preprocessor.sh && mkdocs build)
 	@echo "Building" && \
 	pushd $(PWD) > /dev/null && \
 	${DOCKER_COMMAND} ${BASH_CMD} '$(CMD)' && \

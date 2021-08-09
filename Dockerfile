@@ -23,7 +23,11 @@ RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
 RUN apt-get update && apt-get install -y docker-ce docker-ce-cli
 
+# https://www.mkdocs.org/
+# https://github.com/jreese/markdown-pp
 RUN pip3 install --no-cache --upgrade pip setuptools
-RUN pip3 install mkdocs
+RUN pip3 install mkdocs MarkdownPP
+
+COPY preprocessor.sh /usr/local/bin/
 
 EXPOSE 8000

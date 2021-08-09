@@ -1,13 +1,14 @@
-# Welcome to MkDocs
+# Mkdocs.Tools
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+This is the not the [mkdocs.org](https://www.mkdocs.org) project but a simple toolchain around it.
 
-## Commands
+## Docker image
 
- - `mkdocs new [dir-name]` - Create a new project.
- - `mkdocs serve` - Start the live-reloading docs server.
- - `mkdocs build` - Build the documentation site.
- - `mkdocs -h` - Print help message and exit.
+The docker image is used for local development as well as in CICD for deploying your documenation along with your project.
+
+```dockerfile
+!INCLUDE "../../Dockerfile"
+```
 
 ## Project layout
 
@@ -22,3 +23,6 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
     docs/
         index.md  # The documentation homepage.
         ...       # Other markdown pages, images and other files.
+
+### Commit
+!INCLUDE "../../.git/refs/heads/main"
