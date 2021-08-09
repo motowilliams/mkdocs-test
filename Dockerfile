@@ -24,6 +24,6 @@ RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debia
 RUN apt-get update && apt-get install -y docker-ce docker-ce-cli
 
 RUN pip3 install --no-cache --upgrade pip setuptools
-RUN pip install mkdocs
+RUN pip3 install mkdocs
 
 EXPOSE 8000
