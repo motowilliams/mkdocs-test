@@ -4,6 +4,8 @@ help:
 
 SHELL := /bin/bash
 BASH_CMD := ${SHELL} -c
+GIT_HASH ?= ${shell git rev-parse --short HEAD}
+
 
 IMAGE_NAME ?= mkdocs
 IMAGE_VERSION ?= latest
@@ -20,14 +22,16 @@ export WORKING_DIR := ${PWD}/
 export PROJECT_PATH=${WORKING_DIR}${PROJECT_NAME}
 export DOCS_SRC_PATH=${WORKING_DIR}${PROJECT_NAME}/${DOCS_SRC}
 export DOCS_PROCESSED_PATH=${WORKING_DIR}${PROJECT_NAME}/${DOCS_DIR}
+export COMMIT_HASH=${GIT_HASH}
 DOCKER_COMMAND :=
 else
-WORKING_DIR := /app/
-PROJECT_PATH=${WORKING_DIR}${PROJECT_NAME}
-DOCS_SRC_PATH=${WORKING_DIR}${PROJECT_NAME}/${DOCS_SRC}
-DOCS_PROCESSED_PATH=${WORKING_DIR}${PROJECT_NAME}/${DOCS_DIR}
+export WORKING_DIR := /app/
+export PROJECT_PATH=${WORKING_DIR}${PROJECT_NAME}
+export DOCS_SRC_PATH=${WORKING_DIR}${PROJECT_NAME}/${DOCS_SRC}
+export DOCS_PROCESSED_PATH=${WORKING_DIR}${PROJECT_NAME}/${DOCS_DIR}
+export COMMIT_HASH=${GIT_HASH}
 DOCKER_COMMAND := docker run -it \
--v $(PWD):/${WORKING_DIR}/ \
+-v $(PWD):${WORKING_DIR} \
 --env DOCS_DIR=${DOCS_DIR} \
 --env SITE_NAME=${SITE_NAME} \
 --env SITE_URL=${SITE_URL} \
@@ -35,6 +39,7 @@ DOCKER_COMMAND := docker run -it \
 --env DOCS_PROCESSED_PATH=${DOCS_PROCESSED_PATH} \
 --env PROJECT_PATH=${PROJECT_PATH} \
 --env WORKING_DIR=${WORKING_DIR} \
+--env COMMIT_HASH=${GIT_HASH} \
 --rm \
 -p 8000:8000 \
 $(IMAGE_TAG)
@@ -42,7 +47,7 @@ endif
 
 # markdown-pp $i -o ../processed/$i
 clean_docs: ## Removes the content artifacts directory (SITE_NAME) and compressed archive (SITE_NAME.zip)
-	$(eval CMD := cd ${PROJECT_PATH} && rm -rf ${SITE_NAME}.zip && rm -rf ${SITE_NAME})
+	$(eval CMD := rm -rf ${SITE_NAME}.zip && rm -rf ${SITE_NAME})
 	@echo "Cleaning ${SITE_NAME}.zip & ${SITE_NAME} in ${PROJECT_NAME}" && \
 	${DOCKER_COMMAND} ${BASH_CMD} '$(CMD)'
 
@@ -60,9 +65,8 @@ docker_build: ## Build the docker image used for these make targets
 package_docs: build_docs ## Builds the mkdocs build command to generate content to (SITE_NAME) and creates compressed archive (SITE_NAME.zip)
 	$(eval CMD := cd ${PROJECT_PATH}/${SITE_NAME} && zip -r ../${SITE_NAME}.zip ./)
 	@echo "Packaging"
-	${DOCKER_COMMAND} ${BASH_CMD} '$(CMD)' && \
+	${DOCKER_COMMAND} ${BASH_CMD} '$(CMD)'
 
 serve_docs:  ## Runs the mkdocs server at 0.0.0.0:8000
-	printenv | sort
-	$(eval CMD := cd ${PROJECT_PATH} && mkdocs serve --dev-addr=0.0.0.0:8000)
-	${DOCKER_COMMAND} ${BASH_CMD} '$(CMD)' && \
+	$(eval CMD := cd ${PROJECT_PATH} && preprocessor.sh && mkdocs serve --dev-addr=0.0.0.0:8000)
+	${DOCKER_COMMAND} ${BASH_CMD} '$(CMD)'
