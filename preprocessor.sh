@@ -22,6 +22,7 @@ mkdir -p ../env/
 while IFS='=' read -r -d '' n v; do echo -n "$v" > ../env/"$n"; done < <(env -0)
 
 echo "Processing documents at $PWD into $DOCS_PROCESSED_PATH"
+cp -R ./* $DOCS_PROCESSED_PATH/
 find *.md -maxdepth 1 -type f -exec markdown-pp {} -o $DOCS_PROCESSED_PATH/{} \;
 
 echo -n "Setting directory to "
