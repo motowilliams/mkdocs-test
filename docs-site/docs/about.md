@@ -104,5 +104,5 @@ func main() {
 }
 ```
 
-### Commit
-!INCLUDE "../../.git/refs/heads/main"
+commit-sha
+!INCLUDE "../env/COMMIT_HASH"
