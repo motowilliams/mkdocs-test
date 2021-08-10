@@ -6,8 +6,4 @@ docs_dir: !ENV [DOCS_DIR, "processed"]
 nav:
   - Home: index.md
   - About: about.md
-  - Contact Us: contact-us.md
-  - Products: products.md
-  - Services: services.md
-  - License: license.md
 theme: readthedocs
