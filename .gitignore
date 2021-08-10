@@ -1,3 +1,5 @@
+docs-site/env/
 docs-site/processed/
-docs-site/site/
 docs-site/site.zip
+docs-site/site/
+processed/*
