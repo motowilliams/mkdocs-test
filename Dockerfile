@@ -24,8 +24,8 @@ RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debia
 RUN apt-get update && apt-get install -y docker-ce docker-ce-cli
 
 # https://www.mkdocs.org/
-# https://github.com/jreese/markdown-pp
 RUN pip3 install --no-cache --upgrade pip setuptools
+# https://github.com/jreese/markdown-pp
 RUN pip3 install mkdocs MarkdownPP
 
 COPY preprocessor.sh /usr/local/bin/
