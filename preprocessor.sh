@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-printenv
+printenv | sort
 
 pushd $PWD > /dev/null
 
