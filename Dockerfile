@@ -29,5 +29,6 @@ RUN pip3 install --no-cache --upgrade pip setuptools
 RUN pip3 install mkdocs MarkdownPP
 
 COPY preprocessor.sh /usr/local/bin/
+RUN chmod 755 /usr/local/bin/preprocessor.sh
 
 EXPOSE 8000
