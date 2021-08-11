@@ -13,7 +13,7 @@ IMAGE_VERSION ?= latest
 IMAGE_TAG = $(IMAGE_NAME):$(IMAGE_VERSION)
 
 PROJECT_DIR ?= docs-site
-SITE_NAME?='Sample Site'
+SITE_NAME ?= Sample-Site
 DOCS_SRC ?= docs
 DOCS_DIR ?= processed
 SITE_DIR ?= site
@@ -35,7 +35,7 @@ export COMMIT_HASH=$(GIT_HASH)
 DOCKER_COMMAND := docker run -it \
 -v $(PWD):$(WORKING_DIR) \
 --env DOCS_DIR=$(DOCS_DIR) \
---env SITE_NAME=$(SITE_NAME) \
+--env SITE_NAME="$(SITE_NAME)" \
 --env SITE_DIR=$(SITE_DIR) \
 --env SITE_URL=$(SITE_URL) \
 --env DOCS_SRC_PATH=$(DOCS_SRC_PATH) \
