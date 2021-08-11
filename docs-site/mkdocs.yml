@@ -1,7 +1,8 @@
-site_name: !ENV [SITE_NAME, "My Docs"]
+site_name: !ENV [SITE_NAME, "Sample Site"]
 site_url: !ENV [SITE_URL, "https://example.com/"]
-site_dir: !ENV [SITE_NAME, "site"]
+site_dir: !ENV [SITE_DIR, "site"]
 docs_dir: !ENV [DOCS_DIR, "processed"]
+repo_url: https://gitlab.com/motowilliams/mkdocs-test/
 
 nav:
   - Home: index.md
