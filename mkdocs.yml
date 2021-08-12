@@ -5,6 +5,11 @@ docs_dir: !ENV [DOCS_DIR, "processed"]
 repo_url: https://gitlab.com/motowilliams/mkdocs-test/
 
 nav:
-  - Home: index.md
-  - About: about.md
+  - "Home": "index.md"
+  - "About": "about.md"
+  - "No Includes": "no-includes.md"
+  - "Sub Section1":
+      - "Home": "sub1/index.md"
+      - "About": "sub1/about.md"
+      - "No Includes": "sub1/no-includes.md"
 theme: readthedocs
