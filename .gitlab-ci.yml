@@ -36,6 +36,7 @@ pages:
     - docker:dind
   variables:
     SITE_NAME: "My site from CICD"
+    COMMIT_HASH: $CI_COMMIT_SHORT_SHA
   script:
     - mkdir public
     - make build_docs
