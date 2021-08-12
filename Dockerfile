@@ -13,6 +13,7 @@ RUN apt-get update && \
     lsb-release \
     python3 \
     python3-pip \
+    rsync \
     software-properties-common \
     tar \
     wget \

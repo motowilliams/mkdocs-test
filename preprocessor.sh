@@ -6,25 +6,20 @@ echo "*************************"
 printenv | sort
 echo "*************************"
 
-echo -n "Saving current directory location of $PWD"
-pushd $PWD > /dev/null
-
 echo
-echo "Setting directory to $DOCS_SRC_PATH"
-cd $DOCS_SRC_PATH
-
-echo "Ensuring and cleaning directory $DOCS_PROCESSED_PATH"
-mkdir -p $DOCS_PROCESSED_PATH
-rm -rf $DOCS_PROCESSED_PATH/*
+WORK_DIR=$(find . -name "mkdocs.yml" | sed "s/mkdocs.yml//")
+echo "Setting directory to $WORK_DIR"
+cd $WORK_DIR
 
 echo "Saving enviornment variables as files for preprocessor"
-mkdir -p ../env/
-rm -rf ../env/*
-while IFS='=' read -r -d '' n v; do echo -n "$v" > ../env/"$n"; done < <(env -0)
+rm -rf $DOCS_ENV_PATH
+mkdir -p $DOCS_ENV_PATH
+while IFS='=' read -r -d '' n v; do echo -n "$v" > $DOCS_ENV_PATH/"$n"; done < <(env -0)
 
-echo "Processing documents at $PWD into $DOCS_PROCESSED_PATH"
-cp -R ./* $DOCS_PROCESSED_PATH/
-find *.md -maxdepth 1 -type f -exec markdown-pp {} -o $DOCS_PROCESSED_PATH/{} \;
+echo "Processing documents at $DOCS_SRC_PATH into $DOCS_PROCESSED_PATH"
+rsync --recursive --delete $DOCS_SRC_PATH/ $DOCS_PROCESSED_PATH/
+cd $DOCS_SRC_PATH
+find . -name "*.md" -type f -exec echo "Processing" {} \; -exec markdown-pp {} -o $DOCS_PROCESSED_PATH/{} \;
 
 echo -n "Setting directory to "
-popd
+cd $WORK_DIR

@@ -14,7 +14,7 @@ This is the not the [mkdocs.org](https://www.mkdocs.org) project but a simple to
 The docker image is used for local development as well as in CICD for deploying your documenation along with your project.
 
 ```dockerfile
-!INCLUDE "../../Dockerfile"
+!INCLUDE "../Dockerfile"
 ```
 
 ## Preprocessor
@@ -22,7 +22,7 @@ The docker image is used for local development as well as in CICD for deploying 
 A simple wrapper around https://github.com/jreese/markdown-pp is used for the build task to include any external files you have marked in your markdown files
 
 ```bash
-!INCLUDE "../../preprocessor.sh"
+!INCLUDE "../preprocessor.sh"
 ```
 
 ## Image
