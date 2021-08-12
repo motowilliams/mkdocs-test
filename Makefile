@@ -10,11 +10,11 @@ IMAGE_NAME ?= mkdocs
 IMAGE_VERSION ?= latest
 IMAGE_TAG = $(IMAGE_NAME):$(IMAGE_VERSION)
 
-SITE_NAME ?= Sample-Site
-DOCS_SRC ?= docs
 DOCS_DIR ?= processed
+DOCS_SRC ?= docs
 REPO_URL ?= https://gitlab.com/motowilliams/mkdocs-test/
 SITE_DIR ?= site
+SITE_NAME ?= Sample-Site
 SITE_URL ?= https://example.com/
 
 ifdef CI
