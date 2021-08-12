@@ -13,6 +13,7 @@ IMAGE_TAG = $(IMAGE_NAME):$(IMAGE_VERSION)
 SITE_NAME ?= Sample-Site
 DOCS_SRC ?= docs
 DOCS_DIR ?= processed
+REPO_URL ?= https://gitlab.com/motowilliams/mkdocs-test/
 SITE_DIR ?= site
 SITE_URL ?= https://example.com/
 
@@ -39,6 +40,7 @@ else
 		--env DOCS_SITE_PATH=$(DOCS_SITE_PATH) \
 		--env DOCS_SRC_PATH=$(DOCS_SRC_PATH) \
 		--env REPO_ROOT=$(REPO_ROOT) \
+		--env REPO_URL=$(REPO_URL) \
 		--env SITE_DIR=$(SITE_DIR) \
 		--env SITE_NAME="$(SITE_NAME)" \
 		--env SITE_URL=$(SITE_URL) \
