@@ -39,7 +39,7 @@ pages:
   script:
     - mkdir public
     - make build_docs
-    - cp -R docs-site/site/* public/
+    - cp -R site/* public/
   artifacts:
     paths:
       - public/
