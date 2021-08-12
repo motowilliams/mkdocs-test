@@ -1,5 +1,5 @@
-site_name: !ENV [SITE_NAME, "Sample Site"]
-site_url: !ENV [SITE_URL, "https://example.com/"]
+site_name: !ENV [SITE_NAME, ""]
+site_url: !ENV [SITE_URL, ""]
 site_dir: !ENV [SITE_DIR, "site"]
 docs_dir: !ENV [DOCS_DIR, "processed"]
 repo_url: !ENV [repo_url, ""]
